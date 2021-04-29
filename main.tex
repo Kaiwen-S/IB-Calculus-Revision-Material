@@ -1,0 +1,642 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{apacite}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{epstopdf}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz-cd,amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{ulem}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\graphicspath{ {./images/} }
+\usepackage{array}
+\usepackage{mathrsfs}
+\usepackage{tikz,tikz-cd}
+\usepackage{float}
+\usepackage{amsmath,esint}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ %total={170mm,257mm},
+ left=25mm,
+ right=25mm,
+ top=20mm,
+ }
+
+\theoremstyle{definition}
+\newtheorem{problem}{Problem}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\theoremstyle{definition}  
+\newtheorem{lemma}{Lemma}
+\theoremstyle{definition}
+\newtheorem{proposition}{Proposition}
+\theoremstyle{definition}
+\newtheorem{remark}{Remark}
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\theoremstyle{definition}
+\newtheorem{question}{Question}
+\theoremstyle{definition}
+\newtheorem{Question}{Follow-up Question}
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+
+\title{Calculus}
+\author{Kevin }
+\date{April 2021}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+%\pagebreak
+\section{Two Standard Limits}
+The following two standard limits are important for differentiating trigonometric functions from the first principle, i.e., by definition.
+\begin{align}
+    \lim_{\theta\to0}\dfrac{\sin(\theta)}{\theta}=1\\
+    \lim_{\theta\to0}\dfrac{\cos(\theta)-1}{\theta}=0
+\end{align}
+The proof is essentially about establishing an upper and lower bound for these two functions.
+\begin{proof}
+We prove the first one by squeeze lemma. We know that the following inequality is true on a sufficient small neighborhood $(-\epsilon,\epsilon)$ around the origin.
+\[|\sin(\theta)|\le|\theta|\le|\tan(\theta)|\]
+This is equivalent to
+\[\left|\dfrac{\sin(\theta)}{\theta}\right|\le 1\le \left|\dfrac{\sin(\theta)}{\theta\cos(\theta)}\right|\]
+
+Rearranging the second inequality above gives
+\[|\cos(\theta)|\le\left|\dfrac{\sin(\theta)}{\theta}\right|\]
+Hence,
+\begin{equation}
+    |\cos(\theta)|\le \left|\dfrac{\sin(\theta)}{\theta}\right|\le1
+\end{equation}
+By squeeze lemma,
+\begin{equation}
+    \lim_{\theta\to0}|\cos\theta|\le\lim_{\theta\to0}\left|\dfrac{\sin(\theta)}{\theta}\right|\le \lim_{\theta\to0}1
+\end{equation}
+which implies that $\lim_{\theta\to0}\frac{\sin(\theta)}{\theta}=1$. However, to assert that the limit of this function exist, one needs to appeal to some $\epsilon$-$\delta$ argument to prove that the limits from both sides exist and agree.
+
+There is a proof of the second limit in Haese (textbook). I'll present a different proof that still uses squeeze lemma. Note that \[
+\left|\dfrac{1-\cos(\theta)}{\theta}\right|\ge 0
+\]
+holds trivially. This will be our lower bound.
+Now, consider the unit circle $S^1=\{(x,y)\in\mathbb{R}^2\mid x^2+y^2=1\}$ and the following diagram (using Geogebra).
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{Pictures/Trig_limit.PNG}
+    \caption{Geometric proof}
+    \label{fig:my_label}
+\end{figure}
+It is easy to prove that $\triangle AIB\sim \triangle FGB$. $\because$ $AH$ divides the angle $\theta$ into two equivalent parts, $\therefore$ $\angle GFB=\frac{\theta}{2}$. By the definition of $\sin(\theta)$, we have 
+\[
+\sin\left(\dfrac{\theta}{2}\right)=\dfrac{BG}{FB}=\dfrac{1-\cos(\theta)}{FB}\ge \dfrac{1-\cos(\theta)}{\theta}
+\]
+Hence,
+\begin{equation}
+    0\le\left|\dfrac{1-\cos(\theta)}{\theta}\right|\le \sin\left(\dfrac{\theta}{2}\right)
+\end{equation}
+By squeeze lemma, 
+\begin{equation}
+    \lim_{\theta\to0}0\le\lim_{\theta\to0}\left|\dfrac{1-\cos(\theta)}{\theta}\right|\le \lim_{\theta\to0}\sin\left(\dfrac{\theta}{2}\right)
+\end{equation}
+which implies that $\lim_{\theta\to0}\frac{\cos(\theta)-1}{\theta}=-\lim_{\theta\to0}\frac{1-\cos(\theta)}{\theta}=0$.
+\end{proof}
+
+\section{The Derivatives of Trigonometric Functions (First Principle)}
+\subsection{Sine and Cosecant}
+Let's start......
+\begin{align*}
+    \dfrac{d}{dx}\sin(x)=\lim_{h\to0}\dfrac{\sin(x+h)-\sin(x)}{h}\\
+    =\lim_{h\to0}\dfrac{\sin(x)\cos(h)+\sin(h)\cos(x)-\sin(x)}{h}\\
+    =\lim_{h\to0}\dfrac{\sin(x)(\cos(h)-1)+\cos(x)\sin(h)}{h}\\
+    =\sin(x)\lim_{h\to0}\dfrac{\cos(h)-1}{h}+\cos(x)\lim_{h\to0}\dfrac{\sin(h)}{h}\\
+    =\cos(x)
+\end{align*}
+
+Two methods for driving the derivative of Cosecant.\\
+\textbf{Method 1:}\\
+$\csc$ is the reciprocal of $\sin$, so let $u=\sin(x)$, then
+\begin{align*}
+    \dfrac{d}{dx}\csc(x)=\dfrac{d}{du}\dfrac{1}{u}\dfrac{d}{dx}\sin(x)=-\dfrac{1}{u^2}\cos(x)=-\dfrac{\cos(x)}{\sin^2(x)}\\
+    =-\csc(x)\cot(x)
+\end{align*}
+
+\textbf{Method 2 (First Principle):}\\
+Start:
+\begin{align*}
+    \dfrac{d}{dx}\csc(x)=\lim_{h\to0}\left(\dfrac{1}{h}\left(\frac{1}{\sin(x+h)}-\frac{1}{\sin(x)}\right)\right)\\
+    =\lim_{h\to0}\left(\dfrac{1}{h}\dfrac{\sin(x)-\sin(x+h)}{\sin(x+h)\sin(x)}\right)\\
+    =\lim_{h\to0}\dfrac{2\sin((x-x-h)/2)\cos((2x+h)/2)}{h\sin(x+h)\sin(x)}\\
+    =\lim_{h\to0}\dfrac{\sin((x-x-h)/2)\cos((2x+h)/2)}{\frac{h}{2}\sin(x+h)\sin(x)}\\
+    =\lim_{h\to0}\dfrac{\sin(-h/2)}{h/2}\lim_{h\to0}\dfrac{\cos(x+h/2)}{\sin(x+h)\sin(x)}\\
+    =-\dfrac{\cos(x)}{\sin^2(x)}\\
+    =-\csc(x)\cot(x)
+\end{align*}
+\subsection{Cosine and Secant}
+Can you complete these two similarly? (DO DO IT)
+
+The details will not be as clear as the preceding subsection because I'm lazy, and I don't want to repeat similar argument.
+\begin{align*}
+    \dfrac{d}{dx}\cos(x)=\lim_{h\to0}\dfrac{\cos(x+h)-\cos(x)}{h}\\
+    =\lim_{h\to0}\dfrac{\cos(x)\cos(h)-\sin(x)\sin(h)-\cos(x)}{h}\\
+    =\cos(x)\lim_{h\to0}\dfrac{\cos(h)-1}{h}-\sin(x)\lim_{h\to0}\dfrac{\sin(h)}{h}\\
+    =-\sin(x)
+\end{align*}
+
+Now we turn to $\sec(x)$. I'll skip the first method because it's similar to Method 1 of differentiating $\csc(x)$.
+\begin{align*}
+    \dfrac{d}{dx}\sec(x)=\lim_{h\to0}\dfrac{\cos(x)-\cos(x+h)}{h\cos(x+h)\cos(x)}\\
+    =\lim_{h\to0}\dfrac{2\sin((2x+h)/2)\sin((x+h-x)/2)}{h\cos(x+h)\cos(x)}\\
+    =\lim_{h\to0}\dfrac{\sin(x+h/2)}{\cos(x+h)\cos(x)}\lim_{h\to0}\dfrac{\sin(h/2)}{h/2}\\
+    =\sec(x)\tan(x)
+\end{align*}
+
+\subsection{Tangent and Cotangent}
+Use quotient rule to derive the derivative for these two if you are allowed to use it. Otherwise, use the following derivation.
+\begin{align*}
+    \dfrac{d}{dx}\tan(x)=\lim_{h\to0}\left(\dfrac{1}{h}\left(\dfrac{\sin(x+h)}{\cos(x+h)}-\dfrac{\sin(x)}{\cos(x)}\right)\right)\\
+    =\lim_{h\to0}\dfrac{\sin(x+h)\cos(x)-\sin(x)\cos(x+h)}{h\cos(x+h)\cos(x)}\\
+    =\lim_{h\to0}\dfrac{\sin(x+h-x)}{h\cos(x+h)\cos(x)}\\
+    =\lim_{h\to0}\dfrac{\sin(h)}{h}\lim_{h\to0}\dfrac{1}{\cos(x+h)\cos(x)}
+    =\dfrac{1}{\cos^2(x)}\\
+    =\sec^2(x)
+\end{align*}
+
+For Cotangent,
+\begin{align*}
+    \dfrac{d}{dx}\cot(x)=\lim_{h\to0}\left(\dfrac{1}{h}\left(\dfrac{\cos(x+h)}{\sin(x+h)}-\dfrac{\cos(x)}{\sin(x)}\right)\right)\\
+    =\lim_{h\to0}\dfrac{\cos(x+h)\sin(x)-\cos(x)\sin(x+h)}{h\sin(x+h)\sin(x)}\\
+    =\lim_{h\to0}\dfrac{\sin(x-x-h)}{h\sin(x+h)\sin(x)}\\
+    =\lim_{h\to0}\dfrac{-\sin(h)}{h}\lim_{h\to0}\dfrac{1}{\sin(x+h)\sin(x)}\\
+    =-\csc^2(x)
+\end{align*}
+
+
+
+\section{Proof of Rules of Differentiation (Incomplete)}
+The proof for rules of scalar multiplication and addition are trivial, so I'll not waste my time on those things.
+\begin{theorem}
+Suppose $f(x)=x^n$ $n\in\mathbb{Z}^+$, then $f'(x)=nx^{n-1}$.
+\end{theorem}
+\begin{proof}
+Simple!
+\begin{align*}
+    \dfrac{d}{dx}x^n=\lim_{h\to0}\dfrac{(x+h)^n-x^n}{h}\\
+    =\lim_{h\to0}\dfrac{x^n+\binom{n}{1}x^{n-1}h+\binom{n}{2}x^{n-2}h^2+\ldots+h^n-x^n}{h}\\
+    =\lim_{h\to0}(\binom{n}{1}x^{n-1}+\binom{n}{2}x^{n-2}h+\ldots+h^{n-1})
+    =\binom{n}{1}x^{n-1}
+    =nx^{n-1}
+\end{align*}
+\end{proof}
+\begin{theorem}
+Suppose $f,g:\mathbb{R}\to\mathbb{R}$ are two differentiable functions, then $(fg)'=f'g+fg'$.
+\end{theorem}
+\begin{proof}
+We know the identity
+\[\Delta(fg)=\Delta f\cdot g(x)+f(x+\Delta x)\cdot\Delta g\]
+To visualize why that identity holds, consider the following diagram.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.8]{Pictures/product_rule_identity.PNG}
+    \caption{Illustration of $\Delta(fg)$}
+    \label{fig:my_label2}
+\end{figure}
+The shaded area is the value of the product $fg$. By increasing the variable by a small $\Delta x$, the change of the value is represented by the un-shaded (white) region.
+
+Hence,
+\begin{align*}
+    (fg)'(x)=\lim_{\Delta x\to0}\left(\dfrac{\Delta f}{\Delta x}g(x)+f(x+\Delta x)\dfrac{\Delta g}{\Delta x}\right)\\
+    =f'g+fg'
+\end{align*}
+\end{proof}
+
+\begin{theorem}
+Suppose $f,g:\mathbb{R}\to\mathbb{R}$ are two differentiable functions such that $g\neq 0$. Then, 
+$$\left(\frac{f}{g}\right)'=\dfrac{f'g-fg'}{g^2}$$
+\end{theorem}
+\begin{proof}
+The first proof that I'm going to present here uses the product rule that we just proved, but it requires some basic knowledge about implicit differentiation.
+Suppose $y(x)=\frac{f(x)}{g(x)}$, then $f(x)=y(x)g(x)$, which means \begin{align*}
+    f'(x)=y'(x)g(x)+y(x)g'(x)\\
+    y'(x)=\dfrac{f'(x)-y(x)g'(x)}{g(x)}\\
+    y'(x)=\dfrac{f'(x)-\frac{f(x)}{g(x)}g'(x)}{g(x)}\\
+    y'(x)=\dfrac{\frac{f(x)}{g(x)}g(x)-\frac{f(x)}{g(x)}g'(x)}{g(x)}\\
+    y'(x)=\dfrac{f'(x)g(x)-f(x)g'(x)}{(g(x))^2}
+\end{align*}
+\end{proof}
+\begin{proof}
+The quotient rule can also be proven by first principle. The proof is left to the readers as an exercise. HaHaHa!
+\end{proof}
+
+\begin{theorem}
+Suppose $f,g:\mathbb{R}\to\mathbb{R}$ are two differentiable functions such that $\operatorname{range}(f)\subseteq\operatorname{dom}(g)$, then
+\[(g\circ f)'=\dfrac{dg}{df}\dfrac{df}{dx}\]
+\end{theorem}
+\begin{proof}
+The damn argument presented in most high school materials is NOT correct, those people know nothing about the failure of their fake proof... I'm gonna tell you why...
+
+Consider the rate of change,
+\begin{align*}
+    \dfrac{\Delta g}{\Delta x}=\dfrac{\Delta g}{\Delta f}\dfrac{\Delta f}{\Delta x}
+\end{align*}
+so that $\Delta f$ cancels out, and taking the limit gives us the desired result. NO!!! Well, it's partially correct but incomplete, damn... because of the following situation might occur:
+\textbf{As $\Delta x$ goes to zero, $\Delta f$ might be equal to zero before $\Delta x$ really gets to zero}. It sounds a bit counterintuitive, but it's possible. So the first term needs to be adjusted. Here's what we should do:
+
+We know that $g$ is differentiable at every $f(x)$ by assumption, meaning that $\frac{\Delta g}{\Delta x}=g'(f(x))+E$, where $E$ is an error term that approaches to $0$ as $\Delta x\to 0$. Thus, we should prove it by
+\begin{align*}
+    \dfrac{\Delta g}{\Delta x}=(g'(f(x))+E)\dfrac{\Delta f}{\Delta x}
+\end{align*}
+Hence,
+\begin{align*}
+    \lim_{\Delta x\to0}\dfrac{\Delta g}{\Delta x}=g'f'
+\end{align*}
+\end{proof}
+This adjustment is essential even if it seems to be trivial to our readers because simply writing a quotient there makes no sense.
+
+%Others will be included later... The reason I didn't complete them here is because 1) I need to come up with a geometric view of the quotient identity; 2) although you can derive the chain rule by cancellation, it is not rigorous enough, and an actual proof requires another parts to deal with some specific situations......
+
+\section{The Derivative of Exponential and Logarithmic Function}
+Suppose we get $e^x$, then
+\begin{align*}
+    \dfrac{d}{dx}e^x=\lim_{h\to 0}\dfrac{e^{x+h}-e^x}{h}\\
+    =\lim_{h\to 0}\dfrac{e^x(e^h-1)}{h}\\
+    =e^x\lim_{h\to 0}\dfrac{e^h-1}{h}
+\end{align*}
+Set $y=e^h-1$, then
+\begin{align*}
+    \dfrac{d}{dx}e^x=e^x\lim_{y\to0}\dfrac{y}{\ln(y+1)}
+\end{align*}
+Now, substituting $k=\frac{1}{y}$ will give us
+\begin{align*}
+    \dfrac{d}{dx}e^x=e^x\lim_{k\to\infty}\dfrac{1}{k\ln\left(\frac{1}{k}+1\right)}\\
+    =e^x\lim_{k\to\infty}\dfrac{1}{\ln\left(1+\frac{1}{k}\right)^k}\\
+    =e^x\dfrac{1}{\ln e}\\
+    =e^x
+\end{align*}
+
+Therefore, if $f(x)=a^x$ where $a\in\mathbb{R}$, then
+\[
+\dfrac{d}{dx}a^x=\dfrac{d}{dx}e^{x\ln a}=\ln(a)e^{x\ln(a)}=\ln(a)a^x
+\]
+DONE!
+
+Now, consider $\ln(x)$, then
+\begin{align*}
+    \dfrac{d}{dx}\ln(x)=\lim_{h\to 0}\dfrac{\ln(x+h)-\ln(x)}{h}\\
+    =\lim_{h\to 0}\dfrac{\ln\left(\frac{x+h}{x}\right)}{h}\\
+    =\lim_{h\to 0}\dfrac{\ln\left(1+\frac{h}{x}\right)}{h}\\
+    =\lim_{h\to 0}\dfrac{\frac{h}{x}\ln\left(1+\frac{h}{x}\right)^{\frac{x}{h}}}{h}\\
+    =\lim_{h\to 0}\left(\dfrac{1}{x}\ln\left(1+\frac{h}{x}\right)^{\frac{x}{h}}\right)\\
+    =\dfrac{1}{x}\ln(e)\\
+    =\dfrac{1}{x}
+\end{align*}
+
+\section{Differentiate Implicit Functions}
+Before discussing any differentiation, we need to understand what is an implicit function. For this section, we only care about those functions whose graphs are visible on $\mathbb{R}^2$. It's not going to cause any confusion unless we pass to higher dimensional cases, where the graphs become some sort of manifolds...
+\begin{definition}
+An implicit function is defined using a relation $f(x,y)=0$
+\end{definition}
+\begin{example}
+The unit circle can be defined by an implicit function
+\[x^2+y^2-1=0\]
+\end{example}
+\begin{example}
+Although the parabola $y=x^2$ is a function, we can also express that in implicit forms, i.e., $y-x^2=0$.
+\end{example}
+(Seems like an algebraic variety...)
+When you want to differentiate an implicit function (if it's differentiable) then there are mainly two ways for you to do:
+\begin{itemize}
+    \item Convert that into different branches of explicitly defined functions. For instance we can write down the definition of a circle explicitly by $y=\pm\sqrt{1-x^2}$.
+    \item Simply assume that $y$ is a function of $x$ and differentiate both side of the equation with respect to $x$.
+\end{itemize}
+The second method is usually the most convenient but also the most confusing. Suppose you have an implicitly defined function $f(x,y)=0$. Now, if you slightly change the value of $x$ by $h$, then to make sure that the pair $(x+h,y')$ still satisfies the equation, we need $y$ to change by a small step $h'$ also. So that $f(x+h,y+h')=0$. If not, then $f(x+h,y)\neq 0$, which will not appear on the graph. Thus, what it really means to differentiate both side is to make sure that the net change of $f(x,y)$ is always $0$. The meaning for this differentiation is to see how much $y$-coordinate needs to change when $x$-coordinate changed a really small step.
+\begin{example}
+We have $x^2+y^2=1$, then differentiate both side with respect to $x$ gives $2x+2y\frac{dy}{dx}=0$, so that $\frac{dy}{dx}=-\frac{x}{y}=\frac{-x}{\pm\sqrt{1-x^2}}$. To see why this gives us the slope of the tangent line for the circle at each given point $(x,y)$, consider the radius joining $(0,0)$ and $(x,y)$, its slope must be $y/x$. A simple geometry tells us that for another line $l$ to be tangent at $(x,y)$, then $l$ is perpendicular to the radius joining that point, and for this to be true, we require $m_l\frac{y}{x}=-1$, which agrees to the result of differentiation.
+\end{example}
+Practice more and read the following section about differentiating inverse trig functions.
+
+
+\section{The Derivatives of Inverse Trigonometric Functions}
+This chapter assumes that you know how to apply chain rule and the meaning of differentiating implicit functions.
+
+The derivative of these inverse trig functions are elegant, as you'll see.
+
+\textbf{Important note:} For the first section, you may read carefully to study the idea behind the derivation, but try to do the last two sections as exercises.
+\subsection{Arcsin}
+Suppose $y=\arcsin(x)$, then $x=\sin(y)$, meaning that 
+\begin{align*}
+    \dfrac{d}{dx}x=\dfrac{d}{dy}\sin(y)\dfrac{dy}{dx}\\
+    1=\cos(y)\dfrac{dy}{dx}\\
+    \dfrac{dy}{dx}=\dfrac{1}{\cos(y)}
+\end{align*}
+Now, substitute $\sqrt{1-x^2}=\sqrt{1-\sin^2(y)}=\cos(y)$, which yields
+\[\dfrac{dy}{dx}=\dfrac{1}{\sqrt{1-x^2}}\]
+You can check that the domain of this function is $[-1,1]\subset\mathbb{R}$.
+\subsection{Arccos}
+Suppose $y=\arccos(x)$, then $x=\cos(y)$.
+\begin{align*}
+    1=-\sin(y)\dfrac{dy}{dx}\\
+    \dfrac{dy}{dx}=\dfrac{-1}{\sin(y)}\\
+    \dfrac{dy}{dx}=-\dfrac{1}{\sqrt{1-x^2}}
+\end{align*}
+Do you see the relationship between the derivative of $\arcsin$ and $\arccos$?
+\subsection{Arctan}
+Suppose $y=\arctan(x)$, then $x=\tan(y)$.
+\begin{align*}
+    1=\sec^2\dfrac{dy}{dx}\\
+    \dfrac{dy}{dx}=\dfrac{1}{\sec^2(x)}
+\end{align*}
+Use $1+\tan^2(y)=\sec^2(y)$ to rewrite the equation above as
+\[\dfrac{dy}{dx}=\dfrac{1}{1+x^2}\]
+\textbf{Question:} Can you guess answer to $\frac{d}{dx}\cot^{-1}(x)$? Justify your answer with rigorous argument.
+
+\subsection{Bonus Section!}
+We're going to differentiate $\sec^{-1}(x)$ and $\csc^{-1}(x)$!
+
+Suppose $y=\sec^{-1}(x)$, then $x=\sec(y)$.
+\begin{align*}
+    1=\sec(y)\tan(y)\dfrac{dy}{dx}\\
+    \dfrac{dy}{dx}=\dfrac{1}{\sec(y)\tan(y)}
+\end{align*}
+Here it becomes a bit tricky. The domain of $\sec^{-1}(x)$ is $(-\infty,-1]\cup[1,\infty)$, so the range should be $[0,\pi/2)\cup(\pi/2,\pi]$. Hence, 
+\[
+\tan(y)=
+\begin{cases}
+\sqrt{x^2-1} & x\ge 1\\
+-\sqrt{x^2-1} & x\le -1
+\end{cases}
+\]
+Therefore,
+\[\dfrac{d}{dx}\sec^{-1}(x)=\dfrac{1}{|x|\sqrt{x^2-1}}\]
+
+We turn to $\csc^{-1}(x)$ now.
+Suppose $y=\csc^{-1}(x)$, then
+\begin{align*}
+    \dfrac{dy}{dx}=-\dfrac{1}{\csc(y)\cot(y)}
+\end{align*}
+Again, 
+\[
+\cot(y)=\begin{cases}
+-\sqrt{x^2-1} & x\ge 1\\
+\sqrt{x^2-1} & x\le -1
+\end{cases}
+\]
+similarly for $\csc(y)$...
+Hence, one has
+\[\dfrac{d}{dx}\csc^{-1}(x)=-\dfrac{1}{|x|\sqrt{x^2-1}}\]
+
+\section{Differentiability and Continuity}
+\begin{theorem}
+Differentiability implies continuity.
+\end{theorem}
+\begin{proof}
+Suppose $f:\mathbb{R}\to\mathbb{R}$ is differentiable, then $\lim_{\Delta x\to0}\frac{\Delta f}{\Delta x}=N<\infty$. Hence, if $\Delta f\not\to 0$, then the whole limit would blow up, so we know that $\Delta f\to 0$ as $\Delta x\to 0$. This is basically what the definition of continuity says.
+\end{proof}
+\begin{theorem}
+The converse of the preceding claim doesn't hold.
+\end{theorem}
+\begin{proof}
+There is an simple but "philo" counterexample. Consider Thomae's Function, which is defined as
+\[
+T(x)=\begin{cases}
+\dfrac{1}{q} & x=\dfrac{p}{q}, \operatorname{gcd}(p,q)=1\\
+0 & \text{Otherwise}
+\end{cases}
+\]
+I claim without proof that $T(x)$ is continuous on $\mathbb{R}\setminus\mathbb{Q}$ (continuous at every irrational number) but it's nowhere differentiable.
+\end{proof}
+Google "Thomae's Function" for more information.
+
+\section{L'Hopital's Rule}
+\begin{theorem}
+Suppose $f,g:\mathbb{R}\to\mathbb{R}$ are two differentiable functions, then if \textbf{either} 
+\[\dfrac{f(x)}{g(x)}=\dfrac{0}{0}\text{ OR }\dfrac{f(x)}{g(x)}=\dfrac{\pm\infty}{\pm\infty}\]
+then 
+\[\lim_{x\to c}\dfrac{f(x)}{g(x)}=\lim_{x\to c}\dfrac{f'(x)}{g'(x)}\]
+provided that the limit of the second term exists.
+\end{theorem}
+Here are some examples of applications of L'Hopital's rule.
+\begin{example}
+The limit of ational functions using L'Hopital's rule:
+\[
+\lim_{x\to\infty}\dfrac{ax+b}{cx+d}=\lim_{x\to \infty}\dfrac{a}{c}=\dfrac{a}{c}
+\]
+Using standard method,
+\[
+\lim_{x\to\infty}\dfrac{ax+b}{cx+d}=\lim_{x\to \infty}\dfrac{a+\frac{b}{x}}{c+\frac{d}{x}}=\dfrac{a}{c}
+\]
+\end{example}
+\begin{exercise}
+The example above demonstrates how to manipulate the limit of the quotient of two linear function. Consider the quotient of two polynomial. Can you deduce a general result of the limit using L'Hopital's rule? (Remember! L'Hopital's rule can be applied repetitively.)
+\end{exercise}
+\begin{example}
+Consider $\lim_{x\to -\infty}xe^x$. This function does not have the form of a quotient, and the limit looks like $-\infty\times 0$, which implies nothing. However, this does not imply that the limit is unsolvable. Our goal is to rewrite the expression in quotient form and apply L'Hopital's rule.
+
+Let's try this
+\[L=\lim_{x\to-\infty}\dfrac{e^x}{1/x}\]
+Apply L'Hopital's rule,
+\[
+L=\lim_{x\to-\infty}\dfrac{e^x}{-1/x^2}=\lim_{x\to-\infty}\dfrac{e^x}{2/x^3}=\ldots
+\]
+which gives us nothing, so let's try the other way.
+\[L=\lim_{x\to-\infty}\dfrac{x}{e^{-x}}=\lim_{x\to-\infty}\dfrac{1}{-e^{-x}}=0\]
+\end{example}
+\begin{example}
+Consider $$S=\lim_{x\to 0^+}(x^2\ln^2(x))$$ then
+\[
+S=\lim_{x\to0^+}\dfrac{\ln^2(x)}{x^2}=\lim_{x\to 0^+}\dfrac{2\ln(x)\frac{1}{x}}{-2/x^2}=\lim_{x\to 0^+}\dfrac{\ln(x)}{-1/x}=\lim_{x\to 0^+}\dfrac{1/x}{1/x^2}=\lim_{x\to 0^+}x=0\]
+\end{example}
+\begin{example}
+When there is a product, you should attempt to rewrite it as a quotient in order to apply L'Hospital's rule. Remember that your intuition plays a very important role.
+\[
+\lim_{x\to\infty}x\sin\left(\dfrac{7}{x}\right)=\lim_{x\to\infty}\dfrac{\sin(7/x)}{1/x}=\lim_{x\to\infty}\dfrac{\cos(7/x)\frac{-7}{x^2}}{-1/x^2}=\lim_{x\to\infty}7\cos(7/x)=7
+\]
+\end{example}
+
+These two examples show that practice is really important. The following two examples will demonstrate the techniques of using logarithmic function to evaluate the limit, which is usually applied to an exponential form.
+\begin{example}
+Consider
+\[
+y=\lim_{t\to 0^+}(e^t+t)^{1/t}
+\]
+This does not belong to any familiar form of expression, but since there is an exponent, we can use logarithmic function to "pull it down".
+\[
+\ln(y)=\lim_{x\to 0^+}\dfrac{e^t+t}{t}=\lim_{x\to 0^+}\dfrac{e^t+1}{1}=2
+\]
+So, $y=e^{\ln(y)}=e^2$, meaning that the limit is $e^2$.
+\end{example}
+\begin{example}
+Suppose $z=\lim_{x\to \infty}(e^{-2t}+3t)^{1/t}$, then
+\[
+\ln(z)=\lim_{x\to \infty}\dfrac{e^{-2t}+3t}{t}=\lim_{x\to\infty}\dfrac{-2e^{-2t}+3}{1}=3
+\]
+Therefore, the limit is $z=e^3$.
+\end{example}
+We've already seen some tricks of manipulating expressions, but in some cases, you need to apply L'Hospital's rule multiple times (usually, 1 to 2 times is enough).
+\begin{example}
+Consider
+\begin{align*}
+\lim_{y\to\infty}\dfrac{y^2-e^{6y}}{4y^2+e^{7y}}\\
+=\lim_{y\to\infty}\dfrac{2y-6e^{6y}}{8y+7e^{7y}}\\
+=\lim_{y\to\infty}\dfrac{2-36e^{6y}}{8+49e^{7y}}\\
+=\lim_{y\to\infty}\dfrac{-216e^{6y}}{343e^{7y}}\\
+=\lim_{y\to\infty}\dfrac{-216}{343e^y}\\
+=0
+\end{align*}
+There is an example in Haese textbook that shows how to find the limit of $\dfrac{e^x}{x^n}$. Take a look at it.
+\end{example}
+
+\textbf{Acknowledgement: Most exercises in this section are from Professor Paul's Notes on} \url{https://tutorial.math.lamar.edu/ProblemsNS/CalcI/LHospitalsRule.aspx}
+
+\section{Taylor Series}
+This is a method to approach a function using polynomials. I'll first give the definition and discuss why it's like that.
+\begin{definition}
+Suppose $f:(a,b)\to\mathbb{R}$ is continuously differentiable at $x=c$ (the derivatives of all degree exists for $x=c$), then the Talor series of $f$ at $c$ is
+\[
+\sum_{m=0}^\infty\dfrac{f^{(m)}(c)}{m!}(x-c)^m
+\]
+There is an important quantity to be considered, which is the remainder $R_n$ defined as
+\[
+R_n(x)=f(x)-\sum_{m=0}^{n-1}\dfrac{f^{(m)}(c)}{m!}(x-c)^m
+\]
+\end{definition}
+The term $R_n$ is an error term that measure how close is the original function $f$ and the polynomial approximation. If $R_n$ tends to zero as $n\to \infty$, then we say that $f(x)=\sum_{m=0}^\infty\dfrac{f^{(m)}(c)}{m!}(x-c)^m$ (vice versa).
+
+There's always a question at this point: Why is that power series approximate $f$? Here is the answer.
+Consider a power series
+\[f(x)=\sum_{m=1}^\infty a_mx^m\]
+such that $f$ converges for $|x|<R$, where $R$ is the radius of convergence, then because this power series is NICE when $|x|<R$, we can differentiate it term by term, i.e.,
+\[\dfrac{d}{dx}f(x)=\dfrac{d}{dx}\sum_{m=1}^\infty a_mx^m=\sum_{m=1}^\infty\dfrac{d}{dx} a_mx^m\]
+\textbf{Your task is to observe the pattern for $f'$, $f''$, $f'''$ and conclude what is $f^{(l)}$.} (This is your task because I'm lazy...)
+
+Answer:
+\[
+f^{(l)}(x)=\sum_{m=l}^\infty m(m-1)...(m-l+1)a_mx^{m-l}
+\]
+Substitute $x=0$ gives you a factorial. To offset the impact of differentiating (because it keeps changing the coefficient), we need to divide each term by $m!$. Hence,
+\[f(x)=\sum_{m=0}^\infty\dfrac{f^{(m)}(c)}{m!}(x-c)^m\]
+
+Another potential problem: What is the difference between Taylor Series and Maclaurin Series? Well, the difference is subtle because Taylor series refers to the series expansion of a function at some point in its domain, whereas Maclaurin series refers to the Taylor series at $x=0$.
+
+\subsection{Taylor Series of Trigonometric Functions (Incomplete)}
+We start by looking at the Maclaurin series of $\sin(x)$.
+
+At $x=0$, $\sin(x)=0$ meaning that the constant term of its expansion is also zero. $(\sin(0))'=\cos(0)=1$ shows that the degree $1$ term of its expansion is $1$. $(\sin(0))''=-\sin(0)=0$, so the quadratic term must be zero. In other words there's no proper quadratic approximation for $\sin(x)$ at $x=0$. Then, we have $(\sin(0))'''=-\cos(0)=-1$, meaning that the coefficient for the cubic term is $\frac{-1}{3!}$. Repeat this process, you'll see that 
+\[\sin(x)=0+x+0x^2-\dfrac{1}{3!}x^3+0x^4+\frac{1}{5!}x^5+\ldots\]
+Hence,
+\begin{align*}
+    \sin(x)=\sum_{m=0}^\infty\dfrac{(-1)^n}{(2m+1)!}x^m
+\end{align*}
+This also shows that $\sin(x)$ is an odd function (connect to what Karbro said).
+
+Then, we're going to look at $\cos(x)$.
+
+The process is similar, so it will be left to the readers to complete. (I'm lazy...)
+\[
+\cos(x)=1+0x-\dfrac{1}{2!}x^2+0x^3+\dfrac{1}{4!}x^4+\ldots
+\]
+which means
+\[
+\cos(x)=\sum_{m=0}^\infty\dfrac{(-1)^m}{(2m)!}x^m
+\]
+
+\subsubsection{Challenge}
+Can you derive the Maclaurin sereis of $\tan(x)$, $\sec(x)$, $\csc(x)$, and $\cot(x)$? I can't..... :(
+
+\subsubsection{Answer to the challenge}
+:) 
+
+Suppose $\tan(x)=\sum_{m=0}^\infty a_mx^m$, then
+\begin{enumerate}
+    \item $\tan(0)=0$ implies $a_0=0$;
+    \item $(\tan(0))'=\sec^2(0)=1$ implies $a_1=1$;
+    \item $(\tan(0))''=0$ implies $a_2=0$;
+    \item $(\tan(0))'''=6\sec^4(0)-4\sec^2(0)=2$ implies $a_3=2/6$;
+    \item ......
+\end{enumerate}
+So, 
+\[
+\tan(x)=x+\dfrac{1}{3}x^3+\dfrac{2}{15}x^5+\ldots
+\]
+I'm not sure how to rewrite this using sigma notation...... :(
+
+\subsection{Taylor Series of Exponential and Logarithmic Function}
+A simple fact allows us to conclude the Maclaurin series of $e^x$ really quickly. Note that $\frac{d}{dx}e^x=e^x$, so
+\[
+e^x=1+x+\dfrac{1}{2!}x^2+\ldots=\sum_{m=0}^\infty\dfrac{1}{m!}x^m
+\]
+
+Now, for logarithmic function, we only care about the natural log because we can always change the base. However, $\ln(x)$ is undefined at $x=0$ so we're going to consider $\ln(x+1)$ and derive its Maclaurin series. Suppose $\ln(1+x)=\sum_{m=0}^\infty b_mx^m$, then
+\begin{enumerate}
+    \item $\ln(0+1)=0$ implies $b_0=0$;
+    \item $(\ln(0+1))'=\frac{1}{0+1}=1$ implies $b_1=1$;
+    \item $(\ln(0+1))''=-\frac{1}{(0+1)^2}=-1$ implies $b_2=-\frac{1}{2!}$;
+    \item $(\ln(0+1))'''=2\dfrac{1}{(0+1)^3}=2$ implies $b_3=\frac{2}{3!}$;
+    \item ......
+    \item $(\ln(0+1))^{(k)}=(-1)^{k+1}(k-1)!$ implies $b_k=\frac{(-1)^{k+1}(k-1)!}{k!}=\frac{1}{k}$;
+\end{enumerate}
+So,
+\[
+\ln(1+x)=\sum_{m=1}^\infty\dfrac{(-1)^{m+1}}{m}x^m=\sum_{m=0}^\infty\dfrac{(-1)^m}{(m+1)}x^{m+1}
+\]
+
+\subsection{Proof of De Moivre's Theorem}
+We learned in the chapter of complex number that $e^{ix}=\cos(x)+i\sin(x)$. We're going to give a proof using Maclaurin series.
+\begin{proof}
+\begin{align*}
+    e^{ix}=\sum_{m=0}^\infty\dfrac{1}{m!}(ix)^m\\
+    =1+ix+\dfrac{1}{2}i^2x^2+\dfrac{1}{3!}i^3x^3+\ldots\\
+    =1+ix-\dfrac{1}{2}x^2-i\dfrac{1}{3!}x^3+\dfrac{1}{4!}x^4+\ldots\\
+    =\left(1-\dfrac{1}{2!}x^2+\dfrac{1}{4!}x^4+\ldots\right)+i\left(x-\dfrac{1}{3!}x^3+\dfrac{1}{5!}x^5+\ldots\right)\\
+    =\cos(x)+i\sin(x)
+\end{align*}
+\end{proof}
+
+\subsection{Typical Questions}
+Given an aribitrary analytic function $f:\mathbb{R}\to\mathbb{R}$ and the $n$-th degree taylor polynomial of $f$ at $x=0$ is given by $p(x)$. Then, you should know the value for $f^{(k)}(0)$ for $k\le n$.
+
+\section{Integration}
+The author assumes that the readers know all basic anti-derivatives. To check whether you can adroitly apply them, consider the following lists of questions, give yourself 10 seconds to answer each question. If you can do it, then congrats, you may advance to the next paragraph.
+\textbf{State the indefinite integral of all the following functions}
+\begin{enumerate}
+    \item $ax^b$
+    \item $\sin(x)$
+    \item $\cos(x)$
+    \item $a\sin(x)$
+    \item $a\cos(x)$
+    \item $\sec^2(x)$
+    \item $-\csc^2(x)$
+    \item $e^x$
+    \item $1/x$
+\end{enumerate}
+
+\subsection{Integration by substitution}
+\subsection{Integration by part}
+\subsection{Reduction formula}
+
+\section{Differential Equation}
+\subsection{Variable Separation}
+\subsection{Homogeneous first order ODE}
+\subsection{Non-homogeneous first order ODE}
+\subsection{Seoncond Order ODE (bonus section)}
+\end{document}
