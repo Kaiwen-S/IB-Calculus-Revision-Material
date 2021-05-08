@@ -641,7 +641,64 @@ If we substitute a new variable $u=f(x)$, then $du=f'(x)dx$, which turns this in
 \[
 \int udu
 \]
-(integrating with respect to $u$) Although after you you figure out what to substitute and how to substitute, the integral becomes fairly easy, you still need lots of practice in order to get a kind of intuition, i.e., you need to perceive that there exists a function $f$ and its derivative $f'$ in the integrand.Further exercises will be updated later.
+(integrating with respect to $u$) Although after you you figure out what to substitute and how to substitute, the integral becomes fairly easy, you still need lots of practice in order to get a kind of intuition, i.e., you need to perceive that there exists a function $f$ and its derivative $f'$ in the integrand.Whenever you see some "complicated structure" in the integrand, if it is a polynomial of degree $n$, then you may want to substitute it as $u$ if there is a polynomial of degree $n-1$ outside of that structure. 
+\begin{example}
+We should substitute $u=x^2+1$ in the following case.
+\[
+\int x\sqrt{x^2+1}dx
+\]
+which then becomes
+\[
+\int \dfrac{1}{2}\sqrt{u}du
+\]
+because $du=2xdx$, so we multiply a factor of $1/2$ to eliminate the effect of $2$.
+\end{example}
+
+Also, make that you can sense the existence of the derivative of natural log.
+\begin{example}
+Consider \[\int\dfrac{\ln(x)}{x}dx\] By substituting $u=\ln(x)$, the integral actually becomes \[\int udu\]
+\end{example}
+
+\subsubsection{Trigonometric Substitution}
+What the author (I) found sometimes difficult is trigonometric substitution because it requires a quite adroit manipulation of trigonometric identities.
+\begin{example}
+Consider \[I=\int\dfrac{dx}{\sqrt{1-x^2}}\] If you can write the answer down in two seconds, then this example is not for you because you already master the differentiation of inverse trigonometric functions. (Congratulations!) Suppose you don't the answer, but you know the strategy is substitution. The most obvious two are probably $\sqrt{1-x^2}$ and $1-x^2$, but in either case $du$ makes the expression really ugly, so don't do it. Instead, you should think about how to get rid of the square root sign. Here, the identity $\sin^2(\theta)+\cos^2(\theta)=1$ does a great job. Let's see. Substitute $x=\sin(\theta)$, so that 
+\[
+I=\int\dfrac{dx}{\sqrt{1-\sin^2(\theta)}}
+\]
+We also need something to replace $dx$, but it's easy because $x=\sin(\theta)\implies dx=\cos(\theta)d\theta$. So,
+\[
+I=\int\dfrac{\cos(\theta)d\theta}{\cos(\theta)}=\int d\theta=\theta+C=\arcsin(x)+C
+\]
+\end{example}
+
+\begin{exercise}
+Find the following indefinite integrals by trigonometric substitution.
+\begin{enumerate}
+	\item $\int \dfrac{dx}{1+x^2}$
+	\item $\int \dfrac{-dx}{\sqrt{1-x^2}}$
+\end{enumerate}
+\end{exercise}
+
+Now comes a challenge.
+\begin{example}
+We want to find \[I=\int \dfrac{dx}{\sqrt{1+x^2}}\]
+It is tempting to substitute sine or cosine in to the expression because this is similar to the previous example,but no, we use $x=\tan(\theta)$ because $1+\tan(\theta)=\sec^2(\theta)$ completes the square.After a series of manipulation,
+\[
+I=\int\sec(\theta)d\theta=\ln|\sec(\theta)+\tan(\theta)|+C=\ln|\sec(\arctan(x))+x|+C
+\]
+The integration of secant function is in the textbook (Pearson). Do check it out.
+\end{example}
+
+The strategy of substituting trigonometric terms doesn't only work for $x$ but actually in general. Whenever there is a square root sign or things like $1+[f(x)]^2$ in the denominator, we always try to substitute trig terms to simplify it. Here is a sample question from Pearson's textbook.
+\begin{example}
+We want to find \[ \int \dfrac{e^{-2x}dx}{\sqrt{1-e^{-4x}}}\]
+Now, substitute $e^{-2x}=\sin(\phi)$, then $dx=\frac{\cos(\phi)d\phi}{-2e^{-2x}}$, which implies that $e^{-2x}dx=-\frac{1}{2}\cos(\phi)d\phi$. Thus, the integral turns out to be
+\[
+-\dfrac{1}{2}\int\dfrac{\cos(\phi)d\phi}{\cos(\phi)}=-\dfrac{1}{2}\phi+C=-\dfrac{1}{2}\arcsin(e^{-2x})+C
+\]
+\end{example}
+
 \subsection{Integration by part}
 We start by an example. Consider the indefinite integral
 \[
@@ -674,6 +731,9 @@ Let $u=x$ and $dv= e^xdx$, then $du=dx$ and $v=e^x$. Therefore, we have
 \int xe^xdx=xe^x-\int e^xdx=xe^x-e^x+C
 \]
 DON'T FORGET THE ARBITRARY CONSTANT!
+
+\subsubsection{Induction Method}
+There might exist some questions that ask you to prove an integral formula by induction, in which case integration by parts will be an essential tool. Here are some questions that I found online.
 \subsection{Reduction formula}
 
 \section{Differential Equation}
