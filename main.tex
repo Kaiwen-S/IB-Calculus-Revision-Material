@@ -630,8 +630,50 @@ The author assumes that the readers know all basic anti-derivatives. To check wh
     \item $1/x$
 \end{enumerate}
 
+However, when the function is more complicated, we need some more advanced techniques to figure out the answer.
+
 \subsection{Integration by substitution}
+The strategy is really simple. Suppose we have a continuous function $h:\mathbb{R}\to\mathbb{R}$ that is of the form $h(x)=f(x)f'(x)$, and we want to integrate with respect to $x$, meaning that
+\[
+\int h(x)dx=\int f(x)f'(x)dx
+\]
+If we substitute a new variable $u=f(x)$, then $du=f'(x)dx$, which turns this integral into
+\[
+\int udu
+\]
+(integrating with respect to $u$) Although after you you figure out what to substitute and how to substitute, the integral becomes fairly easy, you still need lots of practice in order to get a kind of intuition, i.e., you need to perceive that there exists a function $f$ and its derivative $f'$ in the integrand.Further exercises will be updated later.
 \subsection{Integration by part}
+We start by an example. Consider the indefinite integral
+\[
+\int xe^xdx
+\]
+In this case,there is no way to use substitution. For example, if substitute $u=x$, then it's basically useless. On the other hand, if you try substitute $u=e^x$, then $x=\ln(u)$, which is no good either. So, probably integration by substitution is not a good idea to do this one.
+
+Think about the rules of differentiation and that integration is the reversed operation of differentiation. Substitution corresponds to undo the effect of chain rule. Can we reverse the product rule? Well, yes.
+
+Suppose we have a product $f(x)=u(x)v(x)$ such that $f$ is differentiable, then by the product rule, we have 
+\[\dfrac{d}{dx}(uv)=u\dfrac{dv}{dx}+v\dfrac{du}{dx}\]
+Now, we take the integral on both side
+\[
+\int \dfrac{d}{dx}(uv)dx=\int u\dfrac{dv}{dx}dx+\int v\dfrac{du}{dx}dx=\int udv+\int vdu
+\]
+Let's rearrange the equation, we found that 
+\[
+\int udv=uv-\int vdu
+\]
+This gives the formula for integration by parts, which says that if the integrand has the form $udv$, then you can find the indefinite integral by setting proper $u$ and proper $dv$ to convert the integral into something you know about. Now, let's return to the example $xe^x$.
+
+Let's try setting $u=e^x$ and $dv=xdx$. Then, $du=e^xdx$ and $v=\frac{1}{2}x^2$, which means
+\[
+\int xe^xdx=\dfrac{1}{2}x^2e^x-\dfrac{1}{2}\int x^2e^xdx
+\]
+Ooops! We don't know the integral of $x^2e^x$ yet, and that thing actually needs another integration by parts, which is not so convenient, so let's try the other way.
+
+Let $u=x$ and $dv= e^xdx$, then $du=dx$ and $v=e^x$. Therefore, we have
+\[
+\int xe^xdx=xe^x-\int e^xdx=xe^x-e^x+C
+\]
+DON'T FORGET THE ARBITRARY CONSTANT!
 \subsection{Reduction formula}
 
 \section{Differential Equation}
