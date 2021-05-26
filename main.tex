@@ -722,6 +722,26 @@ We want to generalize these trigonometric substitution as follows.
     \[I=\int \dfrac{a\sec^2\theta d\theta}{a\sec^2\theta}=\int d\theta=\theta+C=\dfrac{1}{a}\tan\left(\dfrac{x}{a}\right)+C\]
     If we add a square root sign on the denominator, then we can also substitute tangent function. The only difference is that the denominator will become $a\sec(x)$.
 \end{example}
+
+You also need to anticipate the existence of constant in your substitution. If $I=\int x\sqrt{9-x^2}$, then you can substitute $u=x^2$, but it still leaves you with the term $\sqrt{9-u}$,
+which is not good, but because the derivative of a constant vanishes, you can always use $u=9-x^2$, and this helps you make progress.
+Also, you need to be able to identify the relationship between derivative and anti-derivative. For instance, test if you can identify what to substitute in $\int\frac{\csc(x)\cot(x)}{3-\csc(x)}dx$.
+If you can't do it in two seconds, then you really need more practice (sry). Sometimes, the substitution is really complex. Don't be shocked or intimidated by the complex structure of the integrand.
+\begin{example}
+    Consider the integral
+    \[I=\int(\sin(3x)-x^3)^5(\cos(3x)-x^2)dx\]
+    The correct substitution is $u=\sin(3x)-x^3$.
+\end{example}
+\begin{example}
+    For this one,
+    \[4\int\left(\dfrac{1}{x}-e^{-x}\right)\cos(e^{-x}+\ln(x))dx\]
+    You use $u=e^{-x}+\ln(x)$.
+\end{example}
+\begin{example}
+    For $$\int\dfrac{e^{\tan(x)}}{\cos^2(x)}$$
+    try substituting $u=\tan(x)$. You should be able to justify this substitution immediately.
+\end{example}
+
 \subsubsection{Definite integration}
 Consider \[I=\int_a^b f(x)dx\]
 we want to use substitution $u=g(x)$ so that $du=g'(x)dx$. Then, 
@@ -761,6 +781,23 @@ Let $u=x$ and $dv= e^xdx$, then $du=dx$ and $v=e^x$. Therefore, we have
 \]
 DON'T FORGET THE ARBITRARY CONSTANT!
 
+Sometimes, the two integrands are not obvious at all, so you might need to invoke $dv=dx$ in order to proceed integration by parts.
+\begin{example}
+    Consider
+    \[I=\int\sin(\ln(x))dx\]
+    If you try any kind of substitution, you will fail. Meanwhile, this function is not a product, so it's time to invoke $u=\sin(\ln(x))$ and $dv=dx$!
+    Using integration by parts, we get
+    \[
+    I = x\sin(\ln(x))-\int x\cos(\ln(x))\dfrac{dx}{x}=x\sin(\ln(x))-\int\cos(\ln(x))dx    
+    \]
+    which is really nice. Now, use integration again (the same strategy), one can obtain
+    \[
+    I=x\sin(\ln(x))-x\cos(\ln(x))+\int -x\sin(\ln(x))\dfrac{dx}{x}= x\sin(\ln(x))-x\cos(\ln(x))-\int x\sin(\ln(x))dx 
+    \]
+    Therefore,
+    \[I=\dfrac{x\sin(\ln(x))-x\cos(\ln(x))}{2}+C\]
+\end{example}
+
 \begin{example}
     We try to prove an identity in this example. Suppose $f:[a,b]\to\mathbb{R}$ is twice differentiable and its second derivative $f''$ is Riemann integrable, then we have
     \[\int_a^b f(x)dx = \dfrac{(b-a)(f(a)+f(b))}{2}+\dfrac{1}{2}\int_a^b f''(x)(x-a)(x-b)dx\]
@@ -790,9 +827,29 @@ DON'T FORGET THE ARBITRARY CONSTANT!
     which completes the proof
 \end{example}
 
+Note, even though integration by parts is a really strong tool for finding the anti-derivative, it is still limited. Functions like the following one cannot be evaluated using any method that is covered so far.
+\[I=\int\dfrac{\cos(x)}{x}dx\]
+This integral is often denoted $Ci(x)$, but you can write down the anti-derivative using power series, which will be introduced later.
+
 \subsubsection{Induction Method}
 There might exist some questions that ask you to prove an integral formula by induction, in which case integration by parts will be an essential tool. Here are some questions that I found online.
 \subsection{Reduction formula}
+Here, I'll derive the reduction formula for the powers of trigonometric functions.
+\begin{align*}
+    \int\sin^nxdx=\int\sin^{n-1}x\sin xdx=-\cos(x)\sin^{n-1}(x)-(n-1)\int-\cos^2(x)\sin^{n-1}(x)dx\\
+    = -\cos(x)\sin^{n-1}(x)+(n-1)\int\sin^{n-2}(x)(1-\sin^2(x))dx\\
+    = -\cos(x)\sin^{n-1}(x)+(n-1)\int\sin^{n-2}(x)dx-(n-1)\int\sin^n(x)dx\\
+    = -\dfrac{1}{n}\cos(x)\sin^{n-1}(x)+\dfrac{n-1}{n}\int\sin^{n-2}(x)dx
+\end{align*}
+
+The reduction formula for cosine was discussed in class, so I'll skip that. haha\dots
+
+\begin{align*}
+    \int\csc^n(x)=\int\csc^{n-2}(x)\csc^2(x)dx\\
+    =-\cot(x)\csc^{n-2}(x)-(n-2)\int -\cot^2(x)\csc^{n-2}(x)dx\\
+    =-\cot(x)\csc^{n-2}(x)-(n-2)\int\csc^{n-2}(x)(\csc^2(x)-1)dx\\
+    =-\dfrac{1}{n-1}\cot(x)\csc^{n-2}(x)+\dfrac{n-2}{n-1}\csc^{n-2}(x)dx
+\end{align*}
 
 \section{Differential Equation}
 \subsection{Variable Separation}
