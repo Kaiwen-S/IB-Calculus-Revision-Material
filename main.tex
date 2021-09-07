@@ -65,6 +65,7 @@
 \newcommand{\RR}{\mathbb{R}}
 \newcommand{\ZZ}{\mathbb{Z}}
 \newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\CC}{\mathbb{C}}
 
 \title{Calculus}
 \author{Kevin }
@@ -863,7 +864,20 @@ The reduction formula for cosine was discussed in class, so I'll skip that. haha
 \section{Geometry}
 We are working in the Euclidean space!!!
 \subsection{Dot Product}
+Suppose $\vec{p},\vec{q}\in\RR^n$, then their dot product inside
+\[
+\vec{p}\cdot\vec{q}=\begin{bmatrix}
+    p_1\\p_2\\p_3\\ \vdots\\p_n
+\end{bmatrix}\cdot\begin{bmatrix}
+    q_1\\q_2\\q_3\\ \vdots\\q_n
+\end{bmatrix}  
+=\sum_{i=1}^n p_iq_i 
+\]
+A very important equation to be kept in mind is 
+\[\vec{p}\cdot\vec{q}=\Vert p\Vert\Vert q\Vert\cos\theta\]
+where $\theta$ is the angle between the two vectors.
 \subsection{Cross Product}
+In $\RR^3$, there is a reason for defining the cross product! We want to be able to find a third vector perpendicular to the given two! Here is the derivation, which I'll complete later.
 \subsection{Distance}
 It means what it means.
 \subsubsection{Lines}
@@ -873,11 +887,11 @@ For two parallel lines that do not coincide. Suppose
     &l_2:\vec{p_2}+\lambda_2\vec{d_2}
 \end{align*}
 \[
-D=\left\Vert(\vec{p_2}-\vec{p_1})\times \dfrac{(\vec{p_2}-\vec{p_1})\cdot \vec{d_1}}{\Vert d_1\Vert}\right\Vert   
+D=\left\Vert(\vec{p_2}-\vec{p_1})\times \dfrac{(\vec{p_2}-\vec{p_1})\cdot \vec{d_1}}{\Vert d_1\Vert^2}\vec{d_1}\right\Vert   
 \]
 Suppose $l_1$ and $l_2$ are skewed, i.e., $\vec{d_1}\times\vec{d_2}\neq 0$, then
 \[
-D=\vert(\vec{p_2}-\vec{p_1})\cdot(\vec{d_1}\times\vec{d_2})\vert    
+D=\dfrac{\vert(\vec{p_2}-\vec{p_1})\cdot(\vec{d_1}\times\vec{d_2})\vert}{\Vert\vec{d_1}\times\vec{d_2}\Vert}    
 \]
 \subsubsection{Line and Plane}
 Suppose 
@@ -888,7 +902,7 @@ Suppose
 Here is an important note. If the plane is defined using parametric equation, then you need to convert it into a cartesian equation before performing the following process!
 To avoid triviality, we assume that $l$ and $\Pi$ do not intersect. Let $\vec{n}=(a,b,c)$ be the normal vector and $\vec{q}=(x_0,y_0,z_0)$ be a point on the plane.
 \[
-D=|(\vec{p}-\vec{q})\cdot\vec{n}|
+D=\dfrac{|(\vec{p}-\vec{q})\cdot\vec{n}|}{\Vert(a,b,c)\Vert}
 \] 
 \subsubsection{Planes}
 If two planes do not intersect, then they are parallel.
@@ -899,8 +913,39 @@ Suppose
 \end{align*}
 Let $\vec{p},\vec{p'}$ be points on $P,P'$ respectively, then
 \[
-D=|(\vec{p}-\vec{q})\cdot(a,b,c)|   
+D=\dfrac{|(\vec{p}-\vec{q})\cdot(a,b,c)|}{\Vert (a,b,c)\Vert}   
 \]
 \subsubsection{Bonus}
 Supppose we have two $(n-1)$-dimensional "planes" inside an $n$-dimensional space $\RR^n$, then if they are "parallel", then we can still apply the same formula for two planes but in a more general case (where the dot product are generalized). 
+
+\section{Complex Numbers}
+It's denoted $\CC$. Usually the set of complex numbers is $\{a+bi\mid a,b\in\RR,\ i^2=1\}$. Since the arithmetics of $\CC$ is too easy,
+I'll skip that part.
+\subsection{Different "forms" of Complex Numbers}
+\begin{itemize}
+    \item Cartesian form: This is just $z=a+bi$. We call $a$ the real part of $z$ and $b$ the imaginary part of $z$.
+    \item Polar form: This usually refers to $z=re^{i\theta}$ for $\theta\in[0,2\pi)$. In this way, any complex number can be uniquely expressed using a polar form. Note that polar form is especially useful for solving roots of unity.
+\end{itemize}
+Sometimes, we need to convert between the cartesian form and the polar form. It can be easily deduced using Pythagorean Theorem.
+\subsection{De Moivre's Theorem}
+I don't like this name. It's just a fancy term of a lemma. Here is the statement
+\begin{theorem}
+    For any real number $x$ and a positive integer $n$, we have \[(\cos x+i\sin x)^n=\cos nx+i\sin nx\]
+\end{theorem}
+\begin{proof}
+    We use induction. First,
+    \[
+    P(n):= (\cos x+i\sin x)^n=\cos nx+i\sin nx 
+    \]
+    By direct computation, the statement holds trivially for $n=1$, so suppose it's true for some $k>1$.
+    then we have
+    \begin{align*}
+        &(\cos x+i\sin x)^{k+1}=(\cos x+i\sin x)^k(\cos x+i\sin x)=(\cos kx+i\sin kx)(\cos x+i\sin x)\\
+        &=\cos kx\cos x-\sin kx\sin x+i(\cos kx\sin x+\cos x\sin kx)\\
+        &=\cos(kx+x)+i\sin(kx+x)\\
+        &=\cos((k+1)x)+i\sin((k+1)x)
+    \end{align*}
+    which shows that $P(k+1)$ is true. Hence, $P(n)$ is true for all $n\in\ZZ^+$.
+\end{proof}
+The key of this proof is to use the sum formula of sine and cosine in the induction step.
 \end{document}
