@@ -62,6 +62,10 @@
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{corollary}{Corollary}[theorem]
 
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+
 \title{Calculus}
 \author{Kevin }
 \date{April 2021}
@@ -856,4 +860,47 @@ The reduction formula for cosine was discussed in class, so I'll skip that. haha
 \subsection{Homogeneous first order ODE}
 \subsection{Non-homogeneous first order ODE}
 \subsection{Seoncond Order ODE (bonus section)}
+\section{Geometry}
+We are working in the Euclidean space!!!
+\subsection{Dot Product}
+\subsection{Cross Product}
+\subsection{Distance}
+It means what it means.
+\subsubsection{Lines}
+For two parallel lines that do not coincide. Suppose 
+\begin{align*}
+    &l_1:\vec{p_1}+\lambda_1\vec{d_1}\\
+    &l_2:\vec{p_2}+\lambda_2\vec{d_2}
+\end{align*}
+\[
+D=\left\Vert(\vec{p_2}-\vec{p_1})\times \dfrac{(\vec{p_2}-\vec{p_1})\cdot \vec{d_1}}{\Vert d_1\Vert}\right\Vert   
+\]
+Suppose $l_1$ and $l_2$ are skewed, i.e., $\vec{d_1}\times\vec{d_2}\neq 0$, then
+\[
+D=\vert(\vec{p_2}-\vec{p_1})\cdot(\vec{d_1}\times\vec{d_2})\vert    
+\]
+\subsubsection{Line and Plane}
+Suppose 
+\begin{align*}
+    &l:\vec{p}+\lambda\vec{d}\\
+    &\Pi:ax+by+cz=d
+\end{align*}
+Here is an important note. If the plane is defined using parametric equation, then you need to convert it into a cartesian equation before performing the following process!
+To avoid triviality, we assume that $l$ and $\Pi$ do not intersect. Let $\vec{n}=(a,b,c)$ be the normal vector and $\vec{q}=(x_0,y_0,z_0)$ be a point on the plane.
+\[
+D=|(\vec{p}-\vec{q})\cdot\vec{n}|
+\] 
+\subsubsection{Planes}
+If two planes do not intersect, then they are parallel.
+Suppose 
+\begin{align*}
+    &P:ax+by+cz=d\\
+    &P':a'x+b'y+c'z=d'
+\end{align*}
+Let $\vec{p},\vec{p'}$ be points on $P,P'$ respectively, then
+\[
+D=|(\vec{p}-\vec{q})\cdot(a,b,c)|   
+\]
+\subsubsection{Bonus}
+Supppose we have two $(n-1)$-dimensional "planes" inside an $n$-dimensional space $\RR^n$, then if they are "parallel", then we can still apply the same formula for two planes but in a more general case (where the dot product are generalized). 
 \end{document}
