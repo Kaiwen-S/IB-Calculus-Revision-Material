@@ -856,6 +856,75 @@ The reduction formula for cosine was discussed in class, so I'll skip that. haha
     =-\dfrac{1}{n-1}\cot(x)\csc^{n-2}(x)+\dfrac{n-2}{n-1}\csc^{n-2}(x)dx
 \end{align*}
 
+\subsection{Volume of Revolution}
+\subsection{Foundation}
+Given a continuous function $f(x)$ over an interval $[a,b]$,
+we want to find the volume obtained by rotating the area bounded by $f(x)$, $x=a,\ x=b,\ y=0$ with respect to the $x$-axis.
+
+Suppose we have a partition $P=\{a=x_0<x_1<\ldots<x_n=b\}$ of the interval $[a,b]$.
+Clearly, we have 
+\[
+\sum_{i=1}^n\pi m_i^2(x_{i}-x_{i-1})\le V\le \sum_{i=1}^n M_i(x_{i}-x_{i-1})   
+\]
+Take the limit of upper sum and lower sum and apply squeeze lemma, we know that
+\[
+V=\int_a^b\pi f(x)^2dx    
+\]
+There are some tricky integrand related to this kind of integrals. 
+\begin{example}
+    Consider $$\pi\int_1^e(\ln x)^2dx$$. We use integration by parts to get
+    \begin{align*}
+        &\pi\int_1^e(\ln x)^2dx=\pi([x\ln^2 x]_1^e-2\int_1^e x\ln x\dfrac{1}{x}dx)\\
+        &=\pi([x\ln^2 x]_1^e-2\int_1^e \ln xdx)\\
+        &=\pi(e-2)
+    \end{align*}
+    Remember that $\int\ln xdx=x\ln x-x+C$!
+\end{example}
+
+\subsection{Improper Integral}
+Let $f:[a,\infty)\to\RR$ be a real-valued function. If $\int_a^b f(x)dx$ exists for all $b>a$, and $\lim_{b\to\infty}\int_a^b f(x)dx$ exists,
+then we define the improper integral to be
+$$\int_a^\infty f(x)dx:=\lim_{b\to\infty}\int_a^b f(x)dx$$
+\begin{remark}
+    Note that if $f:[a,\infty)\to\RR$ is continuous, then $\int_a^b f(x)dx$ automatically exists for all $b>a$.
+\end{remark}
+\begin{example}
+    An example of convergent improper integral.
+    \[
+    \int_1^\infty\dfrac{dx}{x^2}=\lim_{b\to\infty}\dfrac{dx}{x^2}=\lim_{b\to\infty}\left[\dfrac{-1}{x}\right]_1^b=0-(-1)=1
+    \]
+\end{example}
+\begin{example}
+    An example of divergent improper integral.
+    \[
+    \int_1^\infty\dfrac{dx}{x}=\lim_{b\to\infty}\int_1^b\dfrac{dx}{x}=\lim_{b\to\infty}[\ln(x)]_1^b=\infty    
+    \]
+\end{example}
+\begin{example}
+    An example of undefined improper integral
+    \[
+    \int_0^\infty\cos xdx    
+    \]
+    The reason is that $\lim_{x\to\infty}\sin(x)$ doesn't exist...
+\end{example}
+\subsubsection{p-integrals}
+$p$-integrals refer to the following class of improper integrals.
+\[
+\int_1^\infty\dfrac{dx}{x^p}    
+\]
+\begin{theorem}
+    $\int_1^\infty\frac{dx}{x^p}$ converges if $p>1$ and diverges if $0<p\le 1$. For negative exponents, there is a similar result. The readers can state and prove by themselves
+\end{theorem}
+\begin{proof}
+    Suppose $p=1$, then the integral diverges (one of our example). Suppose $0<p\le 1$, then $\frac{1}{x^p}\ge \frac{1}{x}$, which implies that the integral diverges.
+    If $p>1$, then we have 
+    \begin{align*}
+        &\int_1^\infty\dfrac{dx}{x^p}=\lim_{b\to\infty}\int_1^b\dfrac{dx}{x^p}\\
+        &=\lim_{b\to\infty}\left[\dfrac{1}{-p+1}x^{-p+1}\right]_1^b=\lim_{b\to\infty}\left(\dfrac{1}{-p+1}b^{-p}-\dfrac{1}{-p+1}\right)\\
+        &=\dfrac{1}{1-p}<\infty
+    \end{align*}
+\end{proof}
+\subsection{Tricky part}
 \section{Differential Equation}
 \subsection{Variable Separation}
 \subsection{Homogeneous first order ODE}
