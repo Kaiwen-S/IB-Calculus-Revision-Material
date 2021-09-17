@@ -940,7 +940,21 @@ The converse of the theorems above are left to the readers.
 \subsection{Tricky part}
 When evaluating integrals of the form $\int_{-\infty}^\infty f(x)dx$,
 we need to check the convergence of $\int_a^\infty f(x)dx$ and $\int_{-\infty}^a f(x)dx$.
-This is not equivalent to checking the existence of $\lim_{b\to\infty}\int_{-b}^b f(x)dx$.
+This is not equivalent to checking the existence of $\lim_{b\to\infty}\int_{-b}^b f(x)dx$ (This is often referred to as Cauchy Principal Value, or CPV).
+
+\subsection{Prepare for Normal Distribution}
+In this section, we will evaluate the integral $I=\int_{-\infty}^\infty e^{-x^2}dx$. It should be noted that there is no
+proper expression for the antiderivative of $f(x)=e^{-x^2}$, but we still have alternative method to access this improper integral.
+Consider the volume of revolution: Rotate $z=f(x),\ x\ge 0$ with respect to the $z$-axis. The volume of revolution can be obtained By
+\[
+\int_{0}^\infty 2\pi xe^{-x^2}dx=2\pi\lim_{b\to\infty}\int_0^b xe^{-x^2}dx=2\pi\lim_{b\to\infty}\left[-\dfrac{1}{2}e^{-x^2}\right]_0^b=\pi
+\]
+On the other hand, we can also integrate this using multivariable calculus. The surface formed by rotating the $z=f(x)$ can be considered as a function
+$g:\RR^2\to\RR$ given by $g(x,y)=e^{-(x^2+y^2)}$. Hence, the volume can be expressed as 
+\[
+\int\int_{\RR^2}e^{-(x^2+y^2)}dxdy=\int_{-\infty}^\infty\int_{-\infty}^\infty e^{-x^2-y^2}dxdy=\int_{-\infty}^\infty e^{-y^2}\left(\int_{-\infty}^\infty e^{-x^2}dx\right)dy=\left(\int_{-\infty}^\infty e^{-x^2}dx\right)\left(\int_{-\infty}^\infty e^{-y^2}dy\right)=I^2  
+\]
+This shows that $I^2=\pi$, so $I=\int_{-\infty}^\infty e^{-x^2}dx=\sqrt{\pi}$.
 \section{Differential Equation}
 \subsection{Variable Separation}
 \subsection{Homogeneous first order ODE}
