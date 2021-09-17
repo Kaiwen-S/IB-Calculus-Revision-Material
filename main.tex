@@ -924,7 +924,23 @@ $p$-integrals refer to the following class of improper integrals.
         &=\dfrac{1}{1-p}<\infty
     \end{align*}
 \end{proof}
+\begin{theorem}
+    $\int_0^1x^pdx$ converges if $p>-1$.
+\end{theorem}
+\begin{proof}
+    Let $p>-1$, we have
+    \begin{align*}
+        &\int_0^1x^pdx=\lim_{c\to 0}\int_c^1x^pdx\\
+        &=\lim_{c\to0}\left[\dfrac{1}{p+1}x^{p+1}\right]_c^1\\
+        &=\lim_{c\to0}\left(\dfrac{1}{p+1}-\dfrac{c^{p+1}}{p+1}\right)\\
+        &=\dfrac{1}{p+1}
+    \end{align*}
+\end{proof}
+The converse of the theorems above are left to the readers.
 \subsection{Tricky part}
+When evaluating integrals of the form $\int_{-\infty}^\infty f(x)dx$,
+we need to check the convergence of $\int_a^\infty f(x)dx$ and $\int_{-\infty}^a f(x)dx$.
+This is not equivalent to checking the existence of $\lim_{b\to\infty}\int_{-b}^b f(x)dx$.
 \section{Differential Equation}
 \subsection{Variable Separation}
 \subsection{Homogeneous first order ODE}
