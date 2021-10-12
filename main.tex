@@ -67,6 +67,8 @@
 \newcommand{\QQ}{\mathbb{Q}}
 \newcommand{\CC}{\mathbb{C}}
 
+\newcommand{\Geo}{\operatorname{Geo}}
+
 \title{Calculus}
 \author{Kevin }
 \date{April 2021}
@@ -855,7 +857,33 @@ The reduction formula for cosine was discussed in class, so I'll skip that. haha
     =-\cot(x)\csc^{n-2}(x)-(n-2)\int\csc^{n-2}(x)(\csc^2(x)-1)dx\\
     =-\dfrac{1}{n-1}\cot(x)\csc^{n-2}(x)+\dfrac{n-2}{n-1}\csc^{n-2}(x)dx
 \end{align*}
-
+Here, we also have a very interesting reduction formula that requires some tricks.
+It appears as an extension when computing the variance of the continuous random variable $Y$ with the probability density function (PDF) $e^{-1/2y^2}$.\\
+\begin{example}
+    (The writer recomment reviewing the definition of improper integral first.)\\
+    Define $I_n=\int_{-\infty}^\infty y^ne^{-\frac{1}{2}y^2}dy$. We want to have a reduction formula of $I_n$ in terms of $I_{n-2}$, and the hint is to use integration by parts.
+    People are told in class that they should first consider setting the polynomial term in the integrand as $u$. However, it is not practical in this case because you can't find a closed form to represent the anti-derivative of $e^{-1/2y^2}$.\\
+    Why not try the other way around?\\
+    Suppose $u=e^{-\frac{1}{2}y^2}$ and $dv=y^ndy$, then $du=-ye^{-\frac{1}{2}y^2}dy$ and $v=\frac{1}{n+1}y^{n+1}$, which gives us
+    \begin{align*}
+        &\int y^ne^{-\frac{1}{2}y^2}dy=\dfrac{1}{n+1}y^{n+1}e^{-\frac{1}{2}y^2}-\dfrac{1}{n+1}\int y^{n+1}(-y)e^{-\frac{1}{2}y^2}dy\\
+        &=\dfrac{1}{n+1}y^{n+1}e^{-\frac{1}{2}y^2}+\dfrac{1}{n+1}\int y^{n+2}e^{-\frac{1}{2}y^2}dy
+    \end{align*}
+    This shows that
+    \begin{align*}
+        &I_n=\lim_{b\to\infty}\left[\dfrac{1}{n+1}y^{n+1}e^{-\frac{1}{2}y^2}\right]_0^b+\lim_{b\to-\infty}\left[\dfrac{1}{n+1}y^{n+1}e^{-\frac{1}{2}y^2}\right]_0^b+I_{n+2}
+    \end{align*}
+    Apply L'Hopital's rule (multiple times), we have
+    \begin{align*}
+        \lim_{b\to\infty}\dfrac{y^{n+1}}{(n+1)e^{\frac{1}{2}y^2}}=0 & \lim_{b\to -\infty}\dfrac{y^{n+1}}{(n+1)e^{\frac{1}{2}y^2}}=0
+    \end{align*}
+    Hence, 
+    \[
+        I_n=\dfrac{1}{n+1}I_{n+2} \implies (n+1)I_n=I_{n+2}  
+    \]
+    Now, we just replace $n$ by $n-2$ to get
+    \[I_n=(n-1)I_{n-2}\]
+\end{example}
 \subsection{Volume of Revolution}
 \subsection{Foundation}
 Given a continuous function $f(x)$ over an interval $[a,b]$,
@@ -960,6 +988,43 @@ This shows that $I^2=\pi$, so $I=\int_{-\infty}^\infty e^{-x^2}dx=\sqrt{\pi}$.
 \subsection{Homogeneous first order ODE}
 \subsection{Non-homogeneous first order ODE}
 \subsection{Seoncond Order ODE (bonus section)}
+
+\section{Statistics}
+\subsection{Basics}
+\subsection{Geometric Distribution}
+Through out this section, we assume that the measurement is on the success of a variable.
+The expected value of a variable $Y$ that admits geometric distribution, usually denoted as $Y\sim \Geo(p)$, can be computed by
+\[
+E(Y)=\sum_{n=1}^\infty npq^{n-1}  
+\]
+To evaluate this sum, note that we can factor $p$ out, which leaves 
+\[
+E(Y)=p\sum_{n=1}^\infty nq^{n-1}    
+\]
+Now, consider the series $f(x)=\sum_{n=1}^\infty nx^{n-1}$. It looks like the derivative of some function. For any $x<1$ (it is a probability), $f(x)$ is convergent,
+so we can integrate it term by term to find its anti-derivative to be $\sum_{n=1}^\infty x^n=\frac{1}{1-x}$ for $|x|<1$.
+Hence, we have
+\[
+E(Y)=p\dfrac{d}{dx}\left(\dfrac{1}{1-x}\right)\Bigg|_{x=q}=p\dfrac{1}{(1-q)^2}=p\dfrac{1}{p^2}=\dfrac{1}{p}  
+\]
+\subsection{Binomial Distribution}
+\subsection{Probability Density Function (PDF)}
+\textit{Throughout this section, $Y$ will denote a continuous random variable that takes values in $\RR$.}\\
+The writer assumes that the readers know what a probability density function (PDF) means. It is CERTAINLY different from Portable Document Format (PDF), and sometimes people need to distinguish between them.
+There are two important properties of a PDF $f(y)$:
+\begin{itemize}
+    \item $\int_{-\infty}^\infty f(y)dy=1$. Note that this is analogous to discrete random variable.
+    \item $f(y)\ge 0,\forall y\in\RR$. This is required because the probability can never take negative value.
+\end{itemize}
+The expectation $E(Y)$ and the variance $\operatorname{Var}(Y)$ can all be defined analogously (compare to the case of discrete variable).
+\begin{itemize}
+    \item $E(Y)=\int_{-\infty}^\infty yf(y)dy$. We say that the expected value exist if the integral converges to a finite value.
+    \item $\operatorname{Var}(Y)=\int_{-\infty}^\infty y^2f(y)dy-\left(\int_{-\infty}^\infty yf(y)dy\right)^2$. We say that the variance exist if the integral converges to a finite value.
+\end{itemize}
+Here, the writer document some important examples presented in the class.
+\begin{example}
+    will complete this part later...
+\end{example}
 \section{Geometry}
 We are working in the Euclidean space!!!
 \subsection{Dot Product}
