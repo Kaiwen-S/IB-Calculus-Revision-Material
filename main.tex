@@ -883,6 +883,10 @@ It appears as an extension when computing the variance of the continuous random 
     \]
     Now, we just replace $n$ by $n-2$ to get
     \[I_n=(n-1)I_{n-2}\]
+    \textbf{Can~ we work out the exact expression?}
+    Well if take the facts $I_0=1,\ I_1=0$ for granted, then we can see that $I_{2n+1}=0$ for all $n\in\ZZ^+$. This makes sense because such function is odd.
+    Also, $I_{2n}=(2n-1)(2n-3)\cdots 3\cdot 1$. In terms of factorial, we have
+    \[I_{2n}=\dfrac{(2n)!}{n!2^n}\]
 \end{example}
 \subsection{Volume of Revolution}
 \subsection{Foundation}
@@ -984,8 +988,21 @@ $g:\RR^2\to\RR$ given by $g(x,y)=e^{-(x^2+y^2)}$. Hence, the volume can be expre
 \]
 This shows that $I^2=\pi$, so $I=\int_{-\infty}^\infty e^{-x^2}dx=\sqrt{\pi}$.
 \section{Differential Equation}
+A differential equation is an equation of the form 
+\[
+F\left(x,y,\dfrac{dy}{dx}\right)=0    
+\]
+A solution to the differential equation is a function $\varphi(x):I\to\RR$, where $I\subset\RR$ is an open interval, such that
+$\varphi(x)$ satisfies the differential equation. An important note here is that the solution needs to be differentiable over the interval.
 \subsection{Variable Separation}
+If you have a differential equation that can be written in the form of 
+\[N(y)\dfrac{dy}{dx}=M(x)\]
+then it is said to be \textbf{separable}. In this case, we may integrate on both sides w.r.t $x$ so that
+\[\int N(y)\dfrac{dy}{dx}dx=\int M(x)dx\]
+Clearly, $y$ is a function of $x$ (this is a integration substitution), so the left hand side can be simplified To
+\[\int N(y)dy=\int M(x)dx\]
 \subsection{Homogeneous first order ODE}
+\subsection{Linear first order ODE}
 \subsection{Non-homogeneous first order ODE}
 \subsection{Seoncond Order ODE (bonus section)}
 
@@ -1008,6 +1025,11 @@ Hence, we have
 E(Y)=p\dfrac{d}{dx}\left(\dfrac{1}{1-x}\right)\Bigg|_{x=q}=p\dfrac{1}{(1-q)^2}=p\dfrac{1}{p^2}=\dfrac{1}{p}  
 \]
 \subsection{Binomial Distribution}
+The mean:
+\begin{align*}
+    E(Y)=\sum_{i=1}^ni\binom{n}{i}p^nq^{n-i}
+\end{align*}
+We use a similar trick (differentiation) to obtain the result of the summation above.
 \subsection{Probability Density Function (PDF)}
 \textit{Throughout this section, $Y$ will denote a continuous random variable that takes values in $\RR$.}\\
 The writer assumes that the readers know what a probability density function (PDF) means. It is CERTAINLY different from Portable Document Format (PDF), and sometimes people need to distinguish between them.
@@ -1023,8 +1045,36 @@ The expectation $E(Y)$ and the variance $\operatorname{Var}(Y)$ can all be defin
 \end{itemize}
 Here, the writer document some important examples presented in the class.
 \begin{example}
+    Consider the function
+    \[
+    f(y)=\begin{cases}
+        k\sqrt{-x^2+6x-5} & 1\le x\le 5\\
+        0 &\text{ otherwise}
+    \end{cases}    
+    \]
+    We want to find $k\in\RR$ s.t. $f(y)$ is a PDF. The lecturer gives us a hint: think geometrically.
+    \begin{align*}
+        \int_{-\infty}^\infty f(y)dy=k\int_1^5\sqrt{-x^2+6x-5}
+    \end{align*}
+    You will not be willing to compute this integral explicitly, so we will try to figure out the geometry of the pdf.
+    \begin{align*}
+        \dfrac{1}{k}f(y)=\sqrt{-x^2+6x-5}=\sqrt{4-(x-3)^2}=\sqrt{2^2-(x-3)^2}
+    \end{align*}
+    This is the equation of a half-circle centered at $(3,0)$ with radius $2$. Therefore,
+    \[
+        k\int_1^5\sqrt{-x^2+6x-5}=2k\pi=1
+    \]
+    which implies that $k=\frac{1}{2\pi}$.
+\end{example}
+\begin{example}
     will complete this part later...
 \end{example}
+\subsection{Cumulative Density Function (CDF)}
+By definition, the CDF of a continuous random variable in
+\[
+\int_0^yf(t)dt    
+\]
+where $f(y)$ is the PDF of $Y$.
 \section{Geometry}
 We are working in the Euclidean space!!!
 \subsection{Dot Product}
@@ -1112,4 +1162,19 @@ I don't like this name. It's just a fancy term of a lemma. Here is the statement
     which shows that $P(k+1)$ is true. Hence, $P(n)$ is true for all $n\in\ZZ^+$.
 \end{proof}
 The key of this proof is to use the sum formula of sine and cosine in the induction step.
+
+\section{Some Problem Solving}
+\subsection{The number of derrangement}
+Consider the set $S=\{1,...,n\}$, which contains $n$ elements. We want to count the number of derrangements of this set, i.e., the number of bijective $f:S\to S$ such that $f(i)\neq i\forall i\in S$.
+The first approach is to derive an recursive formula:\\
+Let $D_n$ denote the number of derrangements
+Pick the element $k\in S$ such that $k\mapsto 1$. (This is always possible because we're considering permutations). Then, there are two possibilities.
+\begin{itemize}
+    \item If $1\mapsto k$. Then, the permutation $f:S\to S$ must derrange the set $S\setminus\{1,k\}$, which corresponds to the number $D_{n-2}$. Since $k$ can be chosen arbitrarily except $1$, we have $(n-1)D_{n-2}$ derrangements of this type.
+    \item If $1\not\mapsto k$, then $1$ has exactly $(n-2)$ choices. For any other elements in $S\setminus\{k\}$, there are exactly $1$ forbidden element, so there are $(n-1)D_{n-1}$ derrangements of this type.
+\end{itemize}
+Hence, $D_n=(n-1)D_{n-1}+(n-1)D_{n-2}$.\\
+The second approach is "direct computation":\\
+We count the number of permutations with non-trivial fixed point set. %Let $P(i),\ 1\le i\le n$ denote the number of permutations with $i$ fixed points.
+
 \end{document}
