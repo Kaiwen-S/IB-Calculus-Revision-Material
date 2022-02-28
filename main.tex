@@ -690,10 +690,14 @@ Find the following indefinite integrals by trigonometric substitution.
 Now comes a challenge.
 \begin{example}
 We want to find \[I=\int \dfrac{dx}{\sqrt{1+x^2}}\]
-It is tempting to substitute sine or cosine in to the expression because this is similar to the previous example,but no, we use $x=\tan(\theta)$ because $1+\tan(\theta)=\sec^2(\theta)$ completes the square.After a series of manipulation,
+It is tempting to substitute sine or cosine in to the expression because this is similar to the previous example,but no, we use $x=\tan(\theta)$ because $1+\tan^2(\theta)=\sec^2(\theta)$ completes the square.After a series of manipulation,
 \[
-I=\int\sec(\theta)d\theta=\ln|\sec(\theta)+\tan(\theta)|+C=\ln|\sec(\arctan(x))+x|+C
+I=\int\sec(\theta)d\theta=\ln|\sec(\theta)+\tan(\theta)|+C
 \]
+we know that $\tan(\theta)=x$ by substitution. The value of $\sec\theta$ requires more work.
+Consider an right-angled triangle with opposite $x$ and adjacent $1$, then the hypotenuse is $\sqrt{1+x^2}$ by Pythagora's Theorem.
+This shows that $\sec\theta=\sqrt{1+x^2}$, so the final answer is
+\[\ln|x+\sqrt{1+x^2}|+C\]
 The integration of secant function is in the textbook (Pearson). Do check it out.
 \end{example}
 
@@ -1002,6 +1006,21 @@ then it is said to be \textbf{separable}. In this case, we may integrate on both
 Clearly, $y$ is a function of $x$ (this is a integration substitution), so the left hand side can be simplified To
 \[\int N(y)dy=\int M(x)dx\]
 \subsection{Homogeneous first order ODE}
+A function $f:V\to W$ between two vector spaces is homogeneous of degree $n$ if
+\[
+f(t\vec{w})=t^nf(\vec{w})   
+\]
+where $t$ is a scalar. In particular, if we consider a function $f:\RR^2\to\RR$ that is homogeneous of degree $0$,
+then it only depends on the quotient $y/x$.
+\begin{proof}
+    By homogenity, we have 
+    \[f(tx,ty)=t^0f(x,y)=f(x,y)\]
+    Substitute $t=1/x$, we get
+    \[
+    f(1,y/x)=(1/x)^0f(x,y)=f(x,y)    
+    \]
+    Let $g(y/x)=f(1,y/x)$. The claim then follows directly. 
+\end{proof}
 \subsection{Linear first order ODE}
 \subsection{Non-homogeneous first order ODE}
 \subsection{Seoncond Order ODE (bonus section)}
@@ -1070,11 +1089,19 @@ Here, the writer document some important examples presented in the class.
     will complete this part later...
 \end{example}
 \subsection{Cumulative Density Function (CDF)}
-By definition, the CDF of a continuous random variable in
+By definition, the CDF of a continuous random variable is
 \[
-\int_0^yf(t)dt    
+\int_{-\infty}^yf(t)dt    
 \]
-where $f(y)$ is the PDF of $Y$.
+where $f(y)$ is the PDF of $Y$. Consequently, 
+\[f(y)=\dfrac{dF(y)}{dy}\]
+where $F(y)$ is the cumulative density function.
+\textbf{It should be noted that $F(y)$ should always be continuous and monotonically increasing, so whenever a PDF is given as a piecewise function, we should be careful about the end points when deriving the formula of CDF.}
+
+Some equalities:
+\[P(Y\le y_0)=F(y_0)\]
+\[P(y_0\le Y\le y_1)=F(y_1)-F(y_0)\]
+
 \section{Geometry}
 We are working in the Euclidean space!!!
 \subsection{Dot Product}
@@ -1095,17 +1122,23 @@ In $\RR^3$, there is a reason for defining the cross product! We want to be able
 \subsection{Distance}
 It means what it means.
 \subsubsection{Lines}
-For two parallel lines that do not coincide. Suppose 
+For two parallel lines that do not coincide, we use the following method. Suppose 
 \begin{align*}
     &l_1:\vec{p_1}+\lambda_1\vec{d_1}\\
-    &l_2:\vec{p_2}+\lambda_2\vec{d_2}
+    &l_2:\vec{p_2}+\lambda_2\vec{d_1}
 \end{align*}
-\[
-D=\left\Vert(\vec{p_2}-\vec{p_1})\times \dfrac{(\vec{p_2}-\vec{p_1})\cdot \vec{d_1}}{\Vert d_1\Vert^2}\vec{d_1}\right\Vert   
-\]
+Moreover, assume that the magnitude of the directional vector is $1$, then we know that
+$D=\Vert\vec{p_2}-\vec{p_1}\Vert\sin\theta$, where $\theta$ is the angle between $\vec{p_1}-\vec{p_1}$ and the directional vector.
+This simply shows that
+\[D=\Vert(\vec{p_2}-\vec{p_1})\times \vec{d_1}\Vert\]
+Note that if the magnitude of the directional vector is not equal to $1$, then you need to take $\vec{d_1}/\vert\vec{d_1}\vert$, which normalizes the magnitude to $1$. (Very Crucial!)
+%\[
+%D=\left\Vert(\vec{p_2}-\vec{p_1})\times \dfrac{(\vec{p_2}-\vec{p_1})\cdot \vec{d_1}}{\Vert d_1\Vert^2}\vec{d_1}\right\Vert   
+%\]
 Suppose $l_1$ and $l_2$ are skewed, i.e., $\vec{d_1}\times\vec{d_2}\neq 0$, then
+we can project $\vec{p_2}-\vec{p_1}$ onto the the vector $\vec{d_1}\times\vec{d_2}$.
 \[
-D=\dfrac{\vert(\vec{p_2}-\vec{p_1})\cdot(\vec{d_1}\times\vec{d_2})\vert}{\Vert\vec{d_1}\times\vec{d_2}\Vert}    
+D=\left\Vert\dfrac{\vec{d_1}\times \vec{d_2}}{\Vert\vec{d_1}\times\vec{d_2}\Vert}(\vec{p_2}-\vec{p_1})\right\Vert    
 \]
 \subsubsection{Line and Plane}
 Suppose 
@@ -1116,19 +1149,23 @@ Suppose
 Here is an important note. If the plane is defined using parametric equation, then you need to convert it into a cartesian equation before performing the following process!
 To avoid triviality, we assume that $l$ and $\Pi$ do not intersect. Let $\vec{n}=(a,b,c)$ be the normal vector and $\vec{q}=(x_0,y_0,z_0)$ be a point on the plane.
 \[
-D=\dfrac{|(\vec{p}-\vec{q})\cdot\vec{n}|}{\Vert(a,b,c)\Vert}
+D=\dfrac{|(\vec{p}-\vec{q})\cdot\vec{n}|}{\Vert\vec{n}\Vert}
 \] 
 \subsubsection{Planes}
-If two planes do not intersect, then they are parallel.
 Suppose 
 \begin{align*}
     &P:ax+by+cz=d\\
     &P':a'x+b'y+c'z=d'
 \end{align*}
+If two planes do not intersect, then they must be parallel, and their normal vectors should be co-linear, which implies that
+\[(a',b',c')=\lambda(a,b,c)\]
+for some $\lambda\in\RR$.
 Let $\vec{p},\vec{p'}$ be points on $P,P'$ respectively, then
 \[
-D=\dfrac{|(\vec{p}-\vec{q})\cdot(a,b,c)|}{\Vert (a,b,c)\Vert}   
+D=\dfrac{|(\vec{p}-\vec{p'})\cdot\vec{n}|}{\Vert \vec{n}\Vert}   
 \]
+By linearity of dot product, we can further simplify the the expression above.
+\[D=\dfrac{|d-d'|}{\Vert\vec{n}\Vert}\]
 \subsubsection{Bonus}
 Supppose we have two $(n-1)$-dimensional "planes" inside an $n$-dimensional space $\RR^n$, then if they are "parallel", then we can still apply the same formula for two planes but in a more general case (where the dot product are generalized). 
 
@@ -1151,7 +1188,7 @@ I don't like this name. It's just a fancy term of a lemma. Here is the statement
     \[
     P(n):= (\cos x+i\sin x)^n=\cos nx+i\sin nx 
     \]
-    By direct computation, the statement holds trivially for $n=1$, so suppose it's true for some $k>1$.
+    By direct computation, the statement holds trivially for $n=1$, so suppose it's true for some $k\ge1$.
     then we have
     \begin{align*}
         &(\cos x+i\sin x)^{k+1}=(\cos x+i\sin x)^k(\cos x+i\sin x)=(\cos kx+i\sin kx)(\cos x+i\sin x)\\
@@ -1162,7 +1199,12 @@ I don't like this name. It's just a fancy term of a lemma. Here is the statement
     which shows that $P(k+1)$ is true. Hence, $P(n)$ is true for all $n\in\ZZ^+$.
 \end{proof}
 The key of this proof is to use the sum formula of sine and cosine in the induction step.
-
+\subsection{Solve the roots of polynomials in complex numbers}
+Consider $x^n=re^{i\theta}$, where $\theta\in[0,2\pi)$. We know that this equation has exactly $n$ solutions in $\CC$,
+and they are
+\[
+r^{1/n}e^{i\frac{\theta+2k\pi}{n}}, k=0,1,...,n-1
+\]
 \section{Some Problem Solving}
 \subsection{The number of derrangement}
 Consider the set $S=\{1,...,n\}$, which contains $n$ elements. We want to count the number of derrangements of this set, i.e., the number of bijective $f:S\to S$ such that $f(i)\neq i\forall i\in S$.
